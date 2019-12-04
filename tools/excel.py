@@ -23,6 +23,9 @@ class ExcelWriter():
     def __enter__(self):
         return self
 
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.wb.save(self.excel_name)
+
     # 初始化标题
     def init_title(self):
         self.sheet['A1']= '测试编号'
@@ -58,8 +61,18 @@ class ExcelWriter():
                 self.sheet.cell(row=row, column=8).font = Font(color=RED)
             row += 1
 
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        self.wb.save(self.excel_name)
+    def show_report(self):
+        global l
+        success = norun = fail = 0
+        for i in l:
+            if i.result == 'Pass':
+                success += 1
+            elif i.result == 'Fail':
+                fail += 1
+            else:
+                norun += 1
+        print('总计成功导出用例：{}个， 成功：{}个， 失败：{}个， 未执行：{}个'.format(len(l), success, fail, norun))
+
 
 if __name__ == "__main__":
     with ExcelWriter('xxx.xlsx') as ew:

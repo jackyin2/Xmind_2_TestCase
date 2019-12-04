@@ -26,6 +26,8 @@ class Xmind(object):
         return self.xmind_sheet_data
         # self.xminddata = self.workbook.to_prettify_json()
 
+    def check_xmind(self):
+        pass
 
     def xmind2case(self):
         models = self.xmind_sheet_data["topic"]['topics']
@@ -37,6 +39,7 @@ class Xmind(object):
                 if 'priority-9' in func['markers']: continue
                 for ca in func['topics']:
                     if 'priority-9' in ca['markers']: continue
+                    print('now run xmind to case  P:{} F:{} C:{}'.format(model['title'],func['title'],ca['title']))
                     case = xcase.XmindCase()
                     # 设置模块
                     case.set_model(model['title'])
@@ -48,6 +51,8 @@ class Xmind(object):
                     # 判断该case的优先级，并设置
                     if ca['markers']:
                         case.set_priority(ca['markers'][0])
+
+                    # 设置步骤
                     case.set_step(ca['topics'][0]['title'])
 
                     # 判断当前的case中的期望结果是否达到预期
@@ -62,7 +67,7 @@ class Xmind(object):
                     case.set_expect(ca['topics'][0]['topics'][0]['title'])
 
                     # 判断备注是否有，如果没有该节点则默认为空，有则赋值topics下的title
-                    if len(ca['topics'][0]['topics'][0]['topics']) > 0:
+                    if 'topics' in ca['topics'][0]['topics'][0].keys():
                         case.set_notes(ca['topics'][0]['topics'][0]['topics'][0]['title'])
                     else:
                         case.set_notes('')

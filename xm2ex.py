@@ -17,6 +17,7 @@ xm.xmind2case()
 with excel.ExcelWriter('xxx.xlsx') as ew:
     ew.init_title()
     ew.write_rows()
+    ew.show_report()
 
 
 
