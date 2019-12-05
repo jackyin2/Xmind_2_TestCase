@@ -10,7 +10,7 @@ import argparse
 from tools import excel, xmind_parse
 
 # 1 解析xmind内容
-xm = xmind_parse.Xmind('E:\jackstudy\Xmind_2_TestCase\\xmind\SCA项目测试用例.xmind')
+xm = xmind_parse.Xmind('E:\Jack项目管理\SourceCheck\\测试阶段_SCA项目测试用例.xmind')
 xm.xmind2case()
 
 # 2 创建excel

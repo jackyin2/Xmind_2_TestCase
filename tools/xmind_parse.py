@@ -33,12 +33,12 @@ class Xmind(object):
         models = self.xmind_sheet_data["topic"]['topics']
         global l
         for model in models:
-            # 如果存在优先级9，那么则忽略当前的内容
-            if 'priority-9' in model['markers'] : continue
+            # 如果存在优先级9或者8，那么则忽略当前的内容
+            if 'priority-9' in model['markers'] or 'priority-8' in model['markers'] : continue
             for func in model['topics']:
-                if 'priority-9' in func['markers']: continue
+                if 'priority-9' in func['markers'] or 'priority-8' in func['markers'] : continue
                 for ca in func['topics']:
-                    if 'priority-9' in ca['markers']: continue
+                    if 'priority-9' in ca['markers'] or 'priority-8' in ca['markers'] : continue
                     print('now run xmind to case  P:{} F:{} C:{}'.format(model['title'],func['title'],ca['title']))
                     case = xcase.XmindCase()
                     # 设置模块
